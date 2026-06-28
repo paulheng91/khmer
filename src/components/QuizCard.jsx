@@ -17,8 +17,9 @@ export default function QuizCard({ card, allCards, onNext, current, total, type 
   const [choices, setChoices] = useState([]);
   const [selected, setSelected] = useState(null);
 
-  const isKhmerToEng = type === 'khmer-to-english';
-  const answerKey = isKhmerToEng ? 'english' : 'khmer';
+  // romanization-to-english: hear/see pronunciation → pick meaning
+  // english-to-romanization: see meaning → pick pronunciation
+  const answerKey = type === 'romanization-to-english' ? 'english' : 'romanization';
   const correct = card[answerKey];
 
   useEffect(() => {
@@ -47,19 +48,20 @@ export default function QuizCard({ card, allCards, onNext, current, total, type 
       <p className="step-label">Quiz · {current} of {total}</p>
 
       <div className="quiz-prompt">
-        {isKhmerToEng ? (
+        {type === 'romanization-to-english' ? (
           <>
             <p className="quiz-question">What does this mean?</p>
-            <div className="quiz-khmer">
-              {card.khmer}
+            <div className="quiz-roman-big">
+              {card.romanization}
               <button className="audio-btn-small" onClick={() => playKhmer(card.key)}>🔊</button>
             </div>
-            <div className="quiz-roman">{card.romanization}</div>
+            <div className="quiz-khmer-ref">{card.khmer}</div>
           </>
         ) : (
           <>
-            <p className="quiz-question">How do you write this in Khmer?</p>
+            <p className="quiz-question">How do you pronounce this in Khmer?</p>
             <div className="quiz-english-prompt">{card.english}</div>
+            <div className="quiz-khmer-ref">{card.khmer}</div>
           </>
         )}
       </div>

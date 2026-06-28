@@ -5,8 +5,8 @@ import QuizCard from './QuizCard';
 function buildQuizRound(cards) {
   const qs = [];
   cards.forEach(card => {
-    qs.push({ card, type: 'khmer-to-english' });
-    qs.push({ card, type: 'english-to-khmer' });
+    qs.push({ card, type: 'romanization-to-english' });
+    qs.push({ card, type: 'english-to-romanization' });
   });
   return qs.sort(() => Math.random() - 0.5);
 }
